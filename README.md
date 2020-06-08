@@ -11,6 +11,7 @@
  
 <p><a href="https://arxiv.org/abs/2005.12320">Link to the Paper</a></p>
 <p><a href="https://medium.com/@SeoJaeDuk/learning-to-classify-images-without-labels-43655a1cb4c7">Link to Tutorial by Jae Duk Seo</a></p>
+<p><a href="https://arxiv.org/pdf/1805.01978.pdf">Link to Pretext Task Paper</a></p>
 
 # Installing package
 
