@@ -5,6 +5,9 @@ env/
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
+# Python cache
+**/__pycache__/*
+
 # Distribution / packaging
 .Python
 build/

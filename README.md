@@ -16,3 +16,5 @@
 # Installing package
 
 To install package gloabally run `python setup.py install`, to install in place use `python setup.py develop`
+
+If you installed the package in a virtualenvironement use this command to add it to jupyter `python -m ipykernel install --user --name=<VENV_NAME>`
