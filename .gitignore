@@ -4,12 +4,13 @@ env/
 # notebook temp files
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+*.~*
 
 # pycharm
 .idea/*
 
 # Python cache
-**/__pycache__/*
+*__pycache__*
 
 # Distribution / packaging
 .Python
