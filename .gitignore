@@ -5,6 +5,9 @@ env/
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
+# pycharm
+.idea/*
+
 # Python cache
 **/__pycache__/*
 
