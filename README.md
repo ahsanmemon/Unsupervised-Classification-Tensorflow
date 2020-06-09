@@ -13,8 +13,30 @@
 <p><a href="https://medium.com/@SeoJaeDuk/learning-to-classify-images-without-labels-43655a1cb4c7">Link to Tutorial by Jae Duk Seo</a></p>
 <p><a href="https://arxiv.org/pdf/1805.01978.pdf">Link to Pretext Task Paper</a></p>
 
-# Installing package
+## Installing package
 
 To install package gloabally run `python setup.py install`, to install in place use `python setup.py develop`
 
 If you installed the package in a virtualenvironement use this command to add it to jupyter `python -m ipykernel install --user --name=<VENV_NAME>`
+
+## TODO
+- [ ] Setup git repo
+- [ ] Setup package and dependencies
+- [ ] Define APIs for Pretext/Clustering/self-labelling functions to easily extend
+- [ ] Data augmentation utils:
+    - [ ] Standard Data Augmentations function (use keras ImageGenerator directly?)
+    - [ ] Strong Data Augmentations function
+    - [ ] Speedup Strong Data Augmentations function by using numpy func instead of PIL
+- [ ] Implement utils:
+    - [ ] NearestNeighbor datastruct
+    - [ ] Resnet-18 backbone
+- [ ] Pretext task (only one is strictly necessary):
+    - [ ] RotNet (Ahsan)
+    - [ ] Feature Decoupling
+    - [ ] NCE
+    - [ ] Training script
+- [ ] Clustering task:
+    - [ ] Custom loss
+    - [ ] Training script
+- [ ] Clustering results compared to true labels (Hungarian Algo)
+- [ ] Demo jupyter notebook to get a result from the paper
