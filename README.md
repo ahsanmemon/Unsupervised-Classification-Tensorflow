@@ -20,12 +20,13 @@ To install package gloabally run `python setup.py install`, to install in place 
 If you installed the package in a virtualenvironement use this command to add it to jupyter `python -m ipykernel install --user --name=<VENV_NAME>`
 
 ## TODO
-- [ ] Setup git repo
-- [ ] Setup package and dependencies
+- [x] Setup git repo
+- [x] Setup package and dependencies
 - [ ] Define APIs for Pretext/Clustering/self-labelling functions to easily extend
 - [ ] Data augmentation utils:
     - [ ] Standard Data Augmentations function (use keras ImageGenerator directly?)
-    - [ ] Strong Data Augmentations function
+    - [x] Strong Data Augmentations function
+    - [ ] Add cutout to strong data augmentation
     - [ ] Speedup Strong Data Augmentations function by using numpy func instead of PIL
 - [ ] Implement utils:
     - [ ] NearestNeighbor datastruct
