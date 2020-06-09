@@ -75,7 +75,6 @@ QtPy==1.9.0
 requests==2.23.0
 requests-oauthlib==1.3.0
 rsa==4.0
--e git+https://github.com/ahsanmemon/Unsupervised-Classification-Tensorflow.git@7d7013307c6dfe21f07bb41747909114aa806f5e#egg=scan_tf
 scipy==1.4.1
 send2trash==1.5.0
 six==1.15.0
