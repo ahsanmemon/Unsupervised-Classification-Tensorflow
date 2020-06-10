@@ -90,12 +90,24 @@ def resnet_18(n_output):
     return ResNetTypeI(layer_params=[2, 2, 2, 2], num_classes=n_output)
 
 
-def add_classification_layer(base_model, num_classes):
-    model = tf.keras.Sequential([
-      base_model,
-      tf.keras.layers.Dense(units=num_classes, activation=tf.keras.activations.softmax)
-    ])
+def add_classification_layer(base_model, num_classes, activation=tf.keras.activations.softmax):
+    layers = []
+    for layer in base_model.layers:
+        layers.append(layer)
+    layers.append(tf.keras.layers.Dense(units=num_classes, activation=activation, name="classification_layer"))
+    model = tf.keras.Sequential(layers)
     return model
+
+
+def remove_classification_layer(model):
+    layers_to_keep = []
+    for layer in model.layers:
+        if layer.name == "classification_layer":
+            continue
+        layers_to_keep.append(layer)
+    base_model = tf.keras.Sequential(layers_to_keep)
+    return base_model
+
 
 def resnet_34(n_output):
     return ResNetTypeI(layer_params=[3, 4, 6, 3], num_classes=n_output)

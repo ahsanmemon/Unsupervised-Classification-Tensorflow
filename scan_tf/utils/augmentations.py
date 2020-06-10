@@ -57,6 +57,7 @@ strong_augment_bounds = {
     "shearY": [-0.1, 0.1],
 }
 
+
 def strong_augmentation(im, is_array=False):
     if is_array:
         augmented_im = Image.fromarray(im)
@@ -69,3 +70,11 @@ def strong_augmentation(im, is_array=False):
     if is_array:
         augmented_im = np.array(augmented_im)
     return augmented_im
+
+
+def strong_augmentation_ims(ims, is_array=False):
+    augmented_ims = []
+    in_type = ims.dtype
+    for im in ims:
+        augmented_ims.append(strong_augmentation(im.astype("uint8"), is_array=is_array))
+    return np.array(augmented_ims).astype(in_type)
