@@ -86,8 +86,8 @@ class ResNetTypeII(tf.keras.Model):
         return output
 
 
-def resnet_18(num_classes):
-    return ResNetTypeI(layer_params=[2, 2, 2, 2], num_classes=num_classes)
+def resnet_18(n_output):
+    return ResNetTypeI(layer_params=[2, 2, 2, 2], num_classes=n_output)
 
 
 def add_classification_layer(base_model, num_classes):
