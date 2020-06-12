@@ -1,10 +1,10 @@
 import tensorflow as tf
-from config import NUM_CLASSES
+# from config import NUM_CLASSES
 from models.residual_block import make_basic_block_layer, make_bottleneck_layer
 
 
 class ResNetTypeI(tf.keras.Model):
-    def __init__(self, layer_params):
+    def __init__(self, layer_params, output_shape, output_activation):
         super(ResNetTypeI, self).__init__()
 
         self.conv1 = tf.keras.layers.Conv2D(filters=64,
@@ -28,7 +28,11 @@ class ResNetTypeI(tf.keras.Model):
                                              blocks=layer_params[3],
                                              stride=2)
         self.avgpool = tf.keras.layers.GlobalAveragePooling2D()
-        self.fc = tf.keras.layers.Dense(units=NUM_CLASSES) # , activation=tf.keras.activations.softmax
+        self.fc1 = tf.keras.layers.Dense(units=128, activation='relu')
+        if output_activation:
+            self.fc2 = tf.keras.layers.Dense(units=output_shape, activation=output_activation)
+        else:
+            self.fc2 = tf.keras.layers.Dense(units=output_shape) # , activation=tf.keras.activations.softmax
 
     def call(self, inputs, training=None, mask=None):
         x = self.conv1(inputs)
@@ -40,10 +44,20 @@ class ResNetTypeI(tf.keras.Model):
         x = self.layer3(x, training=training)
         x = self.layer4(x, training=training)
         x = self.avgpool(x)
-        output = self.fc(x)
+        x = self.fc1(x)
+        output = self.fc2(x)
 
         return output
 
+    def build_graph(self, input_shape): 
+        input_shape_nobatch = input_shape[1:]
+        self.build(input_shape)
+        inputs = tf.keras.Input(shape=input_shape_nobatch)
+        
+        if not hasattr(self, 'call'):
+            raise AttributeError("User should define 'call' method in sub-class model!")
+        
+        _ = self.call(inputs)    
 
 class ResNetTypeII(tf.keras.Model):
     def __init__(self, layer_params):
@@ -87,8 +101,8 @@ class ResNetTypeII(tf.keras.Model):
         return output
 
 
-def resnet_18():
-    return ResNetTypeI(layer_params=[2, 2, 2, 2])
+def resnet_18(output_shape, output_activation):
+    return ResNetTypeI(layer_params=[2, 2, 2, 2], output_shape=output_shape, output_activation=output_activation)
 
 
 def resnet_34():
