@@ -1,10 +1,10 @@
 import tensorflow as tf
-# from config import NUM_CLASSES
+from config import NUM_CLASSES
 from models.residual_block import make_basic_block_layer, make_bottleneck_layer
 
 
 class ResNetTypeI(tf.keras.Model):
-    def __init__(self, layer_params, output_shape, output_activation):
+    def __init__(self, layer_params):
         super(ResNetTypeI, self).__init__()
 
         self.conv1 = tf.keras.layers.Conv2D(filters=64,
@@ -27,12 +27,8 @@ class ResNetTypeI(tf.keras.Model):
         self.layer4 = make_basic_block_layer(filter_num=512,
                                              blocks=layer_params[3],
                                              stride=2)
-        self.avgpool = tf.keras.layers.GlobalAveragePooling2D()
-        self.fc1 = tf.keras.layers.Dense(units=128, activation='relu')
-        if output_activation:
-            self.fc2 = tf.keras.layers.Dense(units=output_shape, activation=output_activation)
-        else:
-            self.fc2 = tf.keras.layers.Dense(units=output_shape) # , activation=tf.keras.activations.softmax
+#         self.avgpool = tf.keras.layers.GlobalAveragePooling2D()
+        self.fc = tf.keras.layers.Dense(units=NUM_CLASSES)
 
     def call(self, inputs, training=None, mask=None):
         x = self.conv1(inputs)
@@ -43,11 +39,10 @@ class ResNetTypeI(tf.keras.Model):
         x = self.layer2(x, training=training)
         x = self.layer3(x, training=training)
         x = self.layer4(x, training=training)
-        x = self.avgpool(x)
-        x = self.fc1(x)
-        output = self.fc2(x)
-
-        return output
+        x = self.fc(x)
+#         x = tf.keras.backend.l2_normalize(x, axis=1)
+#         x = self.avgpool(x)
+        return x
 
     def build_graph(self, input_shape): 
         input_shape_nobatch = input_shape[1:]
@@ -101,8 +96,8 @@ class ResNetTypeII(tf.keras.Model):
         return output
 
 
-def resnet_18(output_shape, output_activation):
-    return ResNetTypeI(layer_params=[2, 2, 2, 2], output_shape=output_shape, output_activation=output_activation)
+def resnet_18():
+    return ResNetTypeI(layer_params=[2, 2, 2, 2])
 
 
 def resnet_34():
